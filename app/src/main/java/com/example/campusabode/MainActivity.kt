@@ -1,11 +1,68 @@
 package com.example.campusabode
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    lateinit var mainAct: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        // Get support action bar
+        val appBar = supportActionBar
+
+        //set App title
+        appBar!!.title = "Navigation View"
+
+
+        //Display app icon in toolbar
+        appBar.setDisplayShowHomeEnabled(true)
+        appBar.setLogo(R.mipmap.ic_launcher)
+        appBar.setDisplayUseLogoEnabled(true)
+
+        mainAct = findViewById(R.id.mainAct)
+        val navView = findViewById<NavigationView>(R.id.navView)
+        val toggle = ActionBarDrawerToggle(this, mainAct, toolbar, R.string.nav_open, R.string.nav_close)
+        mainAct.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+        val db = Firebase.firestore
+
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_item_1 -> {
+//                supportFragmentManager.beginTransaction()
+//                    .add(R.id.meContainer, AboutMe()).commit()
+            }
+            R.id.nav_item_2 -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
+            }
+            R.id.nav_item_3 -> {
+                val intent = Intent(this, TententPropertyViewActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        mainAct.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onStart() {
+        super.onStart()
+//        checkUserSignedIn()
     }
 }
