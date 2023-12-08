@@ -1,27 +1,33 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddProperty">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp"
         android:layout_height="match_parent"
         tools:context=".AddProperty">
 
-        <EditText
-            android:id="@+id/editTextName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"/>
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/editTextName"
-            android:layout_marginTop="16dp"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_marginTop="8dp"
             android:hint="Description"/>
+        </com.google.android.material.textfield.TextInputLayout>
         <!--    <ImageView-->
         <!--        android:id="@+id/imageViewPhoto"-->
         <!--        android:layout_width="200dp"-->
@@ -34,82 +40,150 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editTextEmail"
-            android:layout_marginTop="8dp"
             android:text="Choose Photo"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextLocationLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/choosePhotoButton"
-            android:layout_marginTop="16dp"
             android:hint="Location"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextPriceLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/editTextLocation"
-            android:layout_marginTop="16dp"
             android:hint="Price"/>
-
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextPhoneNumberLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/editTextPrice"
-            android:layout_marginTop="16dp"
+            android:inputType="phone"
             android:hint="Phone Number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextBedroomLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextBedroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/editTextPhoneNumber"
-            android:layout_marginTop="16dp"
-            android:hint="No.of Bed Rooms"/>
+            android:inputType="number"
+            android:hint="Bed Rooms"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextBathroomLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editTextBathroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/editTextBedroom"
-            android:layout_marginTop="16dp"
-            android:hint="No.of Bath Rooms"/>
+            android:inputType="number"
+            android:hint="Bath Rooms"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editAvailabilityLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editAvailability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/LoginTextInputInnerFieldStyle"
             android:layout_below="@id/editTextBathroom"
-            android:layout_marginTop="16dp"
+            android:inputType="date"
             android:hint="Available Date"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editMapurlLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/editMapurl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/editAvailability"
-            android:layout_marginTop="16dp"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:inputType="textWebEditText"
             android:hint="Maps URL"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edityoutubeurlLayout"
+            style="@style/LoginTextInputOuterFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/orange"
+            app:hintTextColor="@color/orange">
         <EditText
             android:id="@+id/edityoutubeurl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/editMapurl"
-            android:layout_marginTop="16dp"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:inputType="textWebEditText"
             android:hint="Youtube URL"/>
-
+        </com.google.android.material.textfield.TextInputLayout>
         <Button
             android:id="@+id/uploadButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edityoutubeurl"
-            android:layout_marginTop="16dp"
             android:text="Upload to Firebase"/>
 
-<!--        <Button-->
-<!--            android:id="@+id/switchTabButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/uploadButton"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:text="Switch to Layout2"/>-->
 
-
-    </RelativeLayout>
+    </LinearLayout>
 </ScrollView>

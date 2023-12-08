@@ -25,8 +25,6 @@ class AddProperty : AppCompatActivity() {
     private lateinit var storage: FirebaseStorage
     private lateinit var adapter: MyAdapter
     private val itemList = mutableListOf<Item>()
-    private var name: String = ""
-    private var email: String = ""
     private var location: String = ""
     private var price: String = ""
     private var phone: String = ""
@@ -57,8 +55,9 @@ class AddProperty : AppCompatActivity() {
         }
 
         binding.uploadButton.setOnClickListener {
-            name = binding.editTextName.text.toString()
-            email = binding.editTextEmail.text.toString()
+            val user = FirebaseAuth.getInstance().currentUser
+            val name = user?.displayName.toString()
+            val email = user?.email.toString()
             location = binding.editTextLocation.text.toString()
             price=binding.editTextPrice.text.toString()
             phone=binding.editTextPhoneNumber.text.toString()
@@ -121,7 +120,7 @@ class AddProperty : AppCompatActivity() {
                         val imageRef = imagesRef.push()
                         imageRef.setValue(imageUrl)
 
-                        Toast.makeText(this, "Data   uploaded successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Data uploaded successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
