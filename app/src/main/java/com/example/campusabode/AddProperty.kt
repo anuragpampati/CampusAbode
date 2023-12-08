@@ -88,7 +88,11 @@ class AddProperty : AppCompatActivity() {
 
     private fun uploadImagesToFirebase(name: String, email: String, location: String, imageUris: List<Uri>, price: String,phone : String,bedrooms: String,bathrooms:String,availability: String,mapurl:String,youtubeurl:String) {
         // Create a reference for the user
-        val userRef = database.reference.child("users").push()
+
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        val userR = database.reference.child("users")
+        val userRef = userR.child(user.toString()).push()
+
         userRef.child("name").setValue(name)
         userRef.child("email").setValue(email)
         userRef.child("location").setValue(location)
@@ -117,7 +121,7 @@ class AddProperty : AppCompatActivity() {
                         val imageRef = imagesRef.push()
                         imageRef.setValue(imageUrl)
 
-                        Toast.makeText(this, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Data   uploaded successfully", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
