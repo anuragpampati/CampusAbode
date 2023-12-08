@@ -13,10 +13,11 @@ import com.bumptech.glide.Glide
 class MyAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
-        val emailTextView: TextView = itemView.findViewById(R.id.emailTextView)
         val locationTextView: TextView = itemView.findViewById(R.id.locationTextView)
         val recyclerViewImages: RecyclerView = itemView.findViewById(R.id.recyclerViewImages)
+        val bedRooms: TextView = itemView.findViewById(R.id.bedRooms)
+        val bathRooms: TextView = itemView.findViewById(R.id.bathRooms)
+        val cost: TextView = itemView.findViewById(R.id.cost)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,10 +29,10 @@ class MyAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<MyAdapt
         val currentItem = itemList[position]
 
         // Bind data to the TextViews
-        holder.nameTextView.text = currentItem.name
-        holder.emailTextView.text = currentItem.email
         holder.locationTextView.text = currentItem.location
-
+        holder.bedRooms.text = currentItem.bedrooms + " Bed Rooms"
+        holder.bathRooms.text = currentItem.bathrooms + " Bath Rooms"
+        holder.cost.text = "$"+currentItem.price
         // Set up the RecyclerView for images
         val layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
         holder.recyclerViewImages.layoutManager = layoutManager

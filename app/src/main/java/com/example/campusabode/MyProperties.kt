@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.util.Log
 import android.widget.Button
+import com.google.firebase.auth.FirebaseAuth
 
 
 class MyProperties : AppCompatActivity() {
@@ -45,7 +46,8 @@ class MyProperties : AppCompatActivity() {
     }
 
     private fun retrieveDataFromFirebase() {
-        val databaseReference = database.reference.child("users")
+        val auth = FirebaseAuth.getInstance().currentUser?.uid
+        val databaseReference = database.reference.child("users").child(auth.toString())
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
