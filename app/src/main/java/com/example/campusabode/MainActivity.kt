@@ -50,11 +50,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
             }
             R.id.nav_item_2 -> {
-                val intent = Intent(this, AddProperty::class.java)
+                val intent = Intent(this, MyProperties::class.java)
                 startActivity(intent)
             }
             R.id.nav_item_3 -> {
-
+                val intent = Intent(this, EditProfile::class.java)
+                startActivity(intent)
             }
         }
         mainAct.closeDrawer(GravityCompat.START)

@@ -78,10 +78,10 @@ class AddProperty : AppCompatActivity() {
             }
         }
 
-        binding.switchTabButton.setOnClickListener {
-            val intent = Intent(this, MyProperties::class.java)
-            startActivity(intent)
-        }
+//        binding.switchTabButton.setOnClickListener {
+//            val intent = Intent(this, MyProperties::class.java)
+//            startActivity(intent)
+//        }
     }
 
 

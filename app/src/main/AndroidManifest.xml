@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CampusAdobe"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
             android:name=".MyProperties"
             android:exported="false" />
         <activity

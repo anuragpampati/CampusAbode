@@ -26,8 +26,6 @@ class Login : AppCompatActivity(), ForgotPasswordFragment.Parent {
         val forgotPassFragment = findViewById<FragmentContainerView>(R.id.forgotPassFragment)
 
         forgotPassword.setOnClickListener{
-            val t =Logger.getLogger("test Forgot passcode")
-            t.warning("****************************")
             loginForm.visibility = View.GONE
             forgotPassFragment.visibility = View.VISIBLE
             val fpFragment = ForgotPasswordFragment()
@@ -36,8 +34,6 @@ class Login : AppCompatActivity(), ForgotPasswordFragment.Parent {
 
         }
         notRegistered.setOnClickListener{
-            val t =Logger.getLogger("REgister")
-            t.warning("########################")
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
         }

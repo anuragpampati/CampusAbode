@@ -26,4 +26,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="Utilities">Utilities</string>
+    <string name="add_new_property">Add New Property</string>
+    <string name="enter_full_name">Enter Full Name</string>
 </resources>
