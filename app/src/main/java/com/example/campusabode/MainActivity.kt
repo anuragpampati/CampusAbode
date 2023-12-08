@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
             }
             R.id.nav_item_3 -> {
-                val intent = Intent(this, TententPropertyViewActivity::class.java)
+                val intent = Intent(this, AddProperty::class.java)
                 startActivity(intent)
             }
         }
