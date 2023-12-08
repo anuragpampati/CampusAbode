@@ -102,13 +102,13 @@
             android:layout_marginTop="16dp"
             android:text="Upload to Firebase"/>
 
-        <Button
-            android:id="@+id/switchTabButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/uploadButton"
-            android:layout_marginTop="16dp"
-            android:text="Switch to Layout2"/>
+<!--        <Button-->
+<!--            android:id="@+id/switchTabButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/uploadButton"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:text="Switch to Layout2"/>-->
 
 
     </RelativeLayout>

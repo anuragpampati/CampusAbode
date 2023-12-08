@@ -2,6 +2,7 @@ package com.example.campusabode
 
 
 import android.content.ClipData
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.util.Log
+import android.widget.Button
 
 
 class MyProperties : AppCompatActivity() {
@@ -29,11 +31,17 @@ class MyProperties : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MyAdapter(itemList) // Pass your data model list to the adapter
         recyclerView.adapter = adapter
+        val addNewProperty = findViewById<Button>(R.id.addProperty)
 
         database = FirebaseDatabase.getInstance()
 
         // Retrieve data from Firebase
         retrieveDataFromFirebase()
+
+        addNewProperty.setOnClickListener{
+            val intent = Intent(this, AddProperty::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun retrieveDataFromFirebase() {
