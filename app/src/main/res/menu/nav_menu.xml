@@ -5,13 +5,13 @@
         <!-- Add your menu items here -->
         <item
             android:id="@+id/nav_item_1"
-            android:title="Item 1"/>
+            android:title="Houses Feed"/>
         <item
             android:id="@+id/nav_item_2"
-            android:title="Item 2"/>
+            android:title="My Properties"/>
         <item
             android:id="@+id/nav_item_3"
-            android:title="Item 3"/>
+            android:title="Profile"/>
 
     </group>
 

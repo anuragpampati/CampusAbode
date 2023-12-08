@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val appBar = supportActionBar
 
         //set App title
-        appBar!!.title = "Navigation View"
+//        appBar!!.title = "Navigation View"
 
 
         //Display app icon in toolbar
-        appBar.setDisplayShowHomeEnabled(true)
-        appBar.setLogo(R.mipmap.ic_launcher)
-        appBar.setDisplayUseLogoEnabled(true)
+//        appBar.setDisplayShowHomeEnabled(true)
+//        appBar.setLogo(R.mipmap.ic_launcher)
+//        appBar.setDisplayUseLogoEnabled(true)
 
         mainAct = findViewById(R.id.mainAct)
         val navView = findViewById<NavigationView>(R.id.navView)
@@ -38,23 +38,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mainAct.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
-        val db = Firebase.firestore
+        supportFragmentManager.beginTransaction()
+            .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_item_1 -> {
-//                supportFragmentManager.beginTransaction()
-//                    .add(R.id.meContainer, AboutMe()).commit()
-            }
-            R.id.nav_item_2 -> {
                 supportFragmentManager.beginTransaction()
                     .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
             }
-            R.id.nav_item_3 -> {
+            R.id.nav_item_2 -> {
                 val intent = Intent(this, AddProperty::class.java)
                 startActivity(intent)
+            }
+            R.id.nav_item_3 -> {
+
             }
         }
         mainAct.closeDrawer(GravityCompat.START)

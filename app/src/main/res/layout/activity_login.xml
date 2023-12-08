@@ -7,15 +7,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".Login">
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        android:src="@drawable/logo" />
+
+    <LinearLayout
         android:id="@+id/loginForm"
-        android:padding="15dp"
-        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
-        android:layout_height="match_parent"
-        >
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:visibility="visible">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -25,6 +34,7 @@
             android:layout_height="wrap_content"
             app:boxStrokeColor="@color/orange"
             app:hintTextColor="@color/orange">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailEt"
                 style="@style/LoginTextInputInnerFieldStyle"
@@ -57,27 +67,28 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
             android:background="@color/orange"
             android:text="@string/loginText"
-            android:layout_marginBottom="14dp"
             android:textColor="@color/white"
             android:textStyle="bold" />
+
         <TextView
             android:id="@+id/forgotPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:layout_marginBottom="20dp"
-            android:textStyle="bold"
+            android:gravity="end"
+            android:text="@string/forgot_password"
             android:textColor="@color/orange"
-            android:text="@string/forgot_password" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/notRegistered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@string/not_registered_yet_sign_up" />
+            android:text="@string/not_registered_yet_sign_up"
+            android:textColor="@color/black" />
 
     </LinearLayout>
     <androidx.fragment.app.FragmentContainerView
