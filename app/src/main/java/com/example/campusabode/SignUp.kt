@@ -36,7 +36,6 @@ class SignUp : AppCompatActivity() {
                             val profileUpdates = UserProfileChangeRequest.Builder()
                                 .setDisplayName(displayName)
                                 .build()
-
                             user?.updateProfile(profileUpdates)
                                 ?.addOnCompleteListener { profileUpdateTask ->
                                     if (profileUpdateTask.isSuccessful) {

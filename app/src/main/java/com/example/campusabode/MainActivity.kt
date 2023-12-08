@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +58,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, EditProfile::class.java)
                 startActivity(intent)
             }
+            R.id.nav_item_4 -> {
+                userSignOut()
+            }
         }
         mainAct.closeDrawer(GravityCompat.START)
         return true
@@ -65,5 +69,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStart() {
         super.onStart()
 //        checkUserSignedIn()
+    }
+    fun userSignOut(){
+        val auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
     }
 }
