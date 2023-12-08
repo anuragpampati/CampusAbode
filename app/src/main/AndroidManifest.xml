@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,11 +15,17 @@
         android:theme="@style/Theme.CampusAdobe"
         tools:targetApi="31">
         <activity
+            android:name=".MyProperties"
+            android:exported="false" />
+        <activity
+            android:name=".AddProperty"
+            android:exported="false" />
+        <activity
             android:name=".SignUp"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +36,7 @@
             android:name=".OwnerPropertyViewActivity"
             android:exported="false"
             android:label="@string/title_activity_owner_property_view"
-            android:theme="@style/Theme.CampusAdobe"/>
+            android:theme="@style/Theme.CampusAdobe" />
         <activity
             android:name=".TententPropertyViewActivity"
             android:exported="false"
@@ -40,7 +48,6 @@
             android:theme="@style/Theme.CampusAdobe">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
             </intent-filter>
         </activity>
     </application>
