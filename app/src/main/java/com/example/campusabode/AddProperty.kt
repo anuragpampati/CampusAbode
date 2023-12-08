@@ -69,7 +69,9 @@ class AddProperty : AppCompatActivity() {
             youtubeurl=binding.edityoutubeurl.text.toString()
 
 
-            if (name.isNotEmpty() && email.isNotEmpty() && location.isNotEmpty() && selectedImageUris.isNotEmpty() &&price.isNotEmpty() && phone.isNotEmpty() && bedrooms.isNotEmpty() && bathrooms.isNotEmpty() &&availability.isNotEmpty() &&mapurl.isNotEmpty() && youtubeurl.isNotEmpty()) {
+            if (name.isNotEmpty() && email.isNotEmpty() && location.isNotEmpty()
+//                && selectedImageUris.isNotEmpty()
+                &&price.isNotEmpty() && phone.isNotEmpty() && bedrooms.isNotEmpty() && bathrooms.isNotEmpty() &&availability.isNotEmpty() &&mapurl.isNotEmpty() && youtubeurl.isNotEmpty()) {
                 uploadImagesToFirebase(name, email, location, selectedImageUris , price,phone, bedrooms, bathrooms, availability, mapurl, youtubeurl)
             } else {
                 Toast.makeText(this, "Please enter all details and choose at least one photo", Toast.LENGTH_SHORT).show()
