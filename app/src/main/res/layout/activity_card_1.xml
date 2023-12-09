@@ -80,7 +80,6 @@
                         android:background="@drawable/rounded_corner"
                         android:backgroundTint="@color/silver"
                         android:gravity="center"
-                        android:text="@string/availability"
                         android:textStyle="bold" />
 
                     <TextView

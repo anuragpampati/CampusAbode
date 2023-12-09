@@ -33,6 +33,7 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
         val propertyPrice = view.findViewById<TextView>(R.id.rvprice)
         val propertyBedRoom = view.findViewById<TextView>(R.id.rvBedRoom)
         val propertyBathRoom = view.findViewById<TextView>(R.id.rvBathRoom)
+        val propertOverview = view.findViewById<TextView>(R.id.rvOverview)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -50,6 +51,7 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
         holder.propertyPrice.text = "$"+property.price.toString()
         holder.propertyBedRoom.text = property.bedrooms.toString()+" BedRoom"
         holder.propertyBathRoom.text = property.bathrooms.toString()+" BedRoom"
+        holder.propertOverview.text = "Available from "+ property.availability.toString()
         val firstImageUrl = property.imageUrls.firstOrNull()
         if (firstImageUrl != null) {
             Glide.with(holder.propertyPoster.context)
