@@ -1,6 +1,8 @@
 package com.example.campusabode
 
+
 import Item
+
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.Intent
@@ -25,12 +27,12 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener, FilterFragment.Parent , FilterFragment.OnFilterAppliedListener {
     lateinit var mainAct: DrawerLayout
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
     private val itemList = mutableListOf<Item>() // Create a data model class (Item) for your Firebase data
     private lateinit var filterData: FilterData
     private lateinit var database: FirebaseDatabase
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,7 +106,6 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         filterData.minPrice = minPrice
         filterData.maxPrice = maxPrice
 
-        Log.e("FilterFragment", "Selected Bedrooms: ${filterData.bedrooms}, Selected Bathrooms: ${filterData.bathrooms}")
         retrieveDataFromFirebase()
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -208,8 +209,7 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
 
         priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
         Log.e("SecondActivity", bathroomsMatch.toString())
-//        Log.e("FilterFragment", "item Bedrooms: ${item.bedrooms}, item Bathrooms: ${item.bedrooms}")
-        // Return true if the item matches all filter criteria
+
         return bedroomsMatch && bathroomsMatch && priceMatch
     }
 }
