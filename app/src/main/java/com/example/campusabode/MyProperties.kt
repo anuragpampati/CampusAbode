@@ -174,7 +174,10 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     item.imageUrls = imageUrls
 
                     // Add the Item to the itemList
-                    itemList.add(item)
+                    if(isItemMatchingFilter(item,filterData)){
+                        itemList.add(item)
+                    }
+
                 }
 
                 adapter.notifyDataSetChanged()
@@ -208,7 +211,6 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         val maxPrice = filterData.maxPrice?.toDoubleOrNull() ?: Double.MAX_VALUE
 
         priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
-        Log.e("SecondActivity", bathroomsMatch.toString())
 
         return bedroomsMatch && bathroomsMatch && priceMatch
     }
