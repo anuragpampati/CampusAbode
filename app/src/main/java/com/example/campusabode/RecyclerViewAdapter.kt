@@ -43,9 +43,9 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
 
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
         val property = items[position]
-        holder.propertyAddress.text = property.location.toString()
-        holder.propertyOverview.text = property.description.toString()
-        holder.propertyPrice.text = property.price.toString()
+        holder.propertyAddress.text = property.description.toString()
+        holder.propertyOverview.text = "Availability "+property.availability.toString()
+        holder.propertyPrice.text = "$"+property.price.toString()
         val firstImageUrl = property.imageUrls.firstOrNull()
         if (firstImageUrl != null) {
             Glide.with(holder.propertyPoster.context)

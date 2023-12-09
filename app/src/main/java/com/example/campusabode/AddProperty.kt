@@ -148,6 +148,8 @@ class AddProperty : AppCompatActivity() {
                         imageRef2.setValue(imageUrl)
                         Toast.makeText(this, "Property uploaded successfully", Toast.LENGTH_SHORT).show()
                         progressBar?.visibility = View.GONE
+                        val intent = Intent(this, MyProperties::class.java)
+                        startActivity(intent)
                     }
                 }
                 .addOnFailureListener { e ->
