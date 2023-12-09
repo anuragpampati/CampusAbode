@@ -39,8 +39,8 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
         rv.layoutManager = layoutManager
 //         myAdapter = RecyclerViewAdapter(ArrayList(PropertyInit().propertyList))
         database = FirebaseDatabase.getInstance()
-        val auth = FirebaseAuth.getInstance().currentUser?.uid
-        val databaseReference = database.reference.child("users")
+       // val auth = FirebaseAuth.getInstance().currentUser?.uid
+        val databaseReference = database.reference.child("AllProperties")
 
         databaseReference.get().addOnSuccessListener { dataSnapshot ->
             itemList.clear()
