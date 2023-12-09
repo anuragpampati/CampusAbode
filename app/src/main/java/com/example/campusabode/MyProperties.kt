@@ -1,6 +1,6 @@
 package com.example.campusabode
 
-
+import Item
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.Intent
@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener, FilterFragment.Parent , FilterFragment.OnFilterAppliedListener {
     lateinit var mainAct: DrawerLayout
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
