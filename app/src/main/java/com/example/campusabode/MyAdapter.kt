@@ -14,10 +14,11 @@ import com.bumptech.glide.Glide
 class MyAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<MyAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val locationTextView: TextView = itemView.findViewById(R.id.locationTextView)
+
         val recyclerViewImages: RecyclerView = itemView.findViewById(R.id.recyclerViewImages)
         val bedRooms: TextView = itemView.findViewById(R.id.bedRooms)
         val bathRooms: TextView = itemView.findViewById(R.id.bathRooms)
+        val locations: TextView = itemView.findViewById(R.id.locationTextView)
         val cost: TextView = itemView.findViewById(R.id.cost)
     }
 
@@ -30,8 +31,8 @@ class MyAdapter(private val itemList: List<Item>) : RecyclerView.Adapter<MyAdapt
         val currentItem = itemList[position]
 
         // Bind data to the TextViews
-        holder.locationTextView.text = currentItem.location
-        holder.bedRooms.text = currentItem.bedrooms + " Bed Rooms"
+        holder.locations.text = currentItem.description
+        holder.bedRooms.text = currentItem.bedrooms + " Bed Rooms "
         holder.bathRooms.text = currentItem.bathrooms + " Bath Rooms"
         holder.cost.text = "$"+currentItem.price
         // Set up the RecyclerView for images

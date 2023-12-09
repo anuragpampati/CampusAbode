@@ -2,25 +2,30 @@ package com.example.campusabode
 
 import Item
 import android.app.Activity
-import com.google.firebase.auth.FirebaseAuth
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.campusabode.databinding.ActivityAddPropertyBinding
-import com.example.campusabode.databinding.ActivityMainBinding
-
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.UUID
 
-class AddProperty : AppCompatActivity() {
 
+class AddProperty : AppCompatActivity() {
+    private var progressBar: ProgressBar? = null
     private lateinit var binding: ActivityAddPropertyBinding
     private lateinit var database: FirebaseDatabase
     private lateinit var storage: FirebaseStorage
@@ -34,6 +39,7 @@ class AddProperty : AppCompatActivity() {
     private var availability: String = ""
     private var mapurl: String = ""
     private var youtubeurl: String = ""
+    private var description:String=""
     private val selectedImageUris = mutableListOf<Uri>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +50,11 @@ class AddProperty : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         storage = FirebaseStorage.getInstance()
         adapter = MyAdapter(itemList)
+
+
+        progressBar = findViewById(R.id.progressBar)
+
+
 
         binding.choosePhotoButton.setOnClickListener {
             val galleryIntent =
@@ -59,7 +70,7 @@ class AddProperty : AppCompatActivity() {
             val user = FirebaseAuth.getInstance().currentUser
             val name = user?.displayName.toString()
             val email = user?.email.toString()
-            val description = binding.editTextDescription.text.toString()
+            description = binding.editTextDescription.text.toString()
             location = binding.editTextLocation.text.toString()
             price=binding.editTextPrice.text.toString()
             phone=binding.editTextPhoneNumber.text.toString()
@@ -70,8 +81,9 @@ class AddProperty : AppCompatActivity() {
             youtubeurl=binding.edityoutubeurl.text.toString()
 
 
+
             if (name.isNotEmpty() && email.isNotEmpty() && location.isNotEmpty()
-//                && selectedImageUris.isNotEmpty()
+                && selectedImageUris.isNotEmpty()
                 &&price.isNotEmpty() && phone.isNotEmpty() && bedrooms.isNotEmpty() && bathrooms.isNotEmpty() &&availability.isNotEmpty() &&mapurl.isNotEmpty() && youtubeurl.isNotEmpty()) {
                 uploadImagesToFirebase(name, email,description, location, selectedImageUris , price,phone, bedrooms, bathrooms, availability, mapurl, youtubeurl)
             } else {
@@ -79,17 +91,32 @@ class AddProperty : AppCompatActivity() {
             }
         }
 
-//        binding.switchTabButton.setOnClickListener {
-//            val intent = Intent(this, MyProperties::class.java)
-//            startActivity(intent)
-//        }
     }
-
 
 
     private fun uploadImagesToFirebase(name: String, email: String,description: String, location: String, imageUris: List<Uri>, price: String,phone : String,bedrooms: String,bathrooms:String,availability: String,mapurl:String,youtubeurl:String) {
         // Create a reference for the user
-
+//        val descr = findViewById<EditText>(R.id.editTextDescription)
+//        val cp = findViewById<Button>(R.id.choosePhotoButton)
+//        val loc = findViewById<EditText>(R.id.editTextLocation)
+//        val pr = findViewById<EditText>(R.id.editTextPrice)
+//        val ph = findViewById<EditText>(R.id.editTextPhoneNumber)
+//        val ba = findViewById<EditText>(R.id.editTextBedroom)
+//        val bd = findViewById<EditText>(R.id.editTextBathroom)
+//        val av = findViewById<EditText>(R.id.editAvailability)
+//        val mp = findViewById<EditText>(R.id.editMapurl)
+//        val yt = findViewById<EditText>(R.id.edityoutubeurl)
+        progressBar?.visibility = View.VISIBLE
+//        descr?.visibility = View.GONE
+//        cp?.visibility = View.GONE
+//        loc?.visibility = View.GONE
+//        pr?.visibility = View.GONE
+//        ph?.visibility = View.GONE
+//        ba?.visibility = View.GONE
+//        bd?.visibility = View.GONE
+//        av?.visibility = View.GONE
+//        mp?.visibility = View.GONE
+//        yt?.visibility = View.GONE
         val user = FirebaseAuth.getInstance().currentUser
         val userR = database.reference.child("users")
         val userRef = userR.child(user?.uid.toString()).push()
@@ -122,8 +149,18 @@ class AddProperty : AppCompatActivity() {
                         // Create a reference for each image under "images" node
                         val imageRef = imagesRef.push()
                         imageRef.setValue(imageUrl)
-
-                        Toast.makeText(this, "Data uploaded successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Property uploaded successfully", Toast.LENGTH_SHORT).show()
+                        progressBar?.visibility = View.GONE
+//                        descr?.visibility = View.VISIBLE
+//                        cp?.visibility = View.VISIBLE
+//                        loc?.visibility = View.VISIBLE
+//                        pr?.visibility = View.VISIBLE
+//                        ph?.visibility = View.VISIBLE
+//                        ba?.visibility = View.VISIBLE
+//                        bd?.visibility = View.VISIBLE
+//                        av?.visibility = View.VISIBLE
+//                        mp?.visibility = View.VISIBLE
+//                        yt?.visibility = View.VISIBLE
                     }
                 }
                 .addOnFailureListener { e ->
@@ -131,6 +168,7 @@ class AddProperty : AppCompatActivity() {
                     Log.e("FirebaseUpload", "Error uploading image", e)
                 }
         }
+
     }
 
     // In your onActivityResult method
@@ -138,7 +176,6 @@ class AddProperty : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-//            val selectedImageUris = mutableListOf<Uri>()
 
             if (data.clipData != null) {
                 // Multiple images selected
@@ -151,15 +188,6 @@ class AddProperty : AppCompatActivity() {
                 val imageUri = data.data!!
                 selectedImageUris.add(imageUri)
             }
-
-            // Upload the images to Firebase
-//            if (selectedImageUris.isNotEmpty()) {
-//                val name = binding.editTextName.text.toString()
-//                val email = binding.editTextEmail.text.toString()
-//                val location = binding.editTextLocation.text.toString()
-//
-//                uploadImagesToFirebase(name, email, location, selectedImageUris)
-//            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.campusabode
 
 
 import Item
+
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.Intent
@@ -14,12 +15,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.util.Log
-import android.view.View
+import android.view.MenuItem
 import android.widget.Button
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.OnFilterAppliedListener {
+class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener, FilterFragment.Parent , FilterFragment.OnFilterAppliedListener {
+    lateinit var mainAct: DrawerLayout
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
@@ -32,6 +39,19 @@ class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.On
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_properties)
         filterData = FilterData(null,null,null,null)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbars)
+        setSupportActionBar(findViewById(R.id.toolbars))
+        // Get support action bar
+        val appBar = supportActionBar
+        appBar!!.title = "My Properties"
+
+        mainAct = findViewById(R.id.mainActs)
+        val navView = findViewById<NavigationView>(R.id.navView)
+        val toggle = ActionBarDrawerToggle(this, mainAct, toolbar, R.string.nav_open, R.string.nav_close)
+        mainAct.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
 
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -88,7 +108,34 @@ class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.On
 
         retrieveDataFromFirebase()
     }
-
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.nav_item_1 -> {
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
+            }
+            R.id.nav_item_2 -> {
+                val intent = Intent(this, MyProperties::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_item_3 -> {
+                val intent = Intent(this, EditProfile::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_item_4 -> {
+                userSignOut()
+            }
+        }
+        mainAct.closeDrawer(GravityCompat.START)
+        return true
+    }
+    fun userSignOut(){
+        val auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
+    }
     private fun retrieveDataFromFirebase() {
         val auth = FirebaseAuth.getInstance().currentUser?.uid
         val databaseReference = database.reference.child("users").child(auth.toString())

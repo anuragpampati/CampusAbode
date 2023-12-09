@@ -48,10 +48,9 @@ class Login : AppCompatActivity(), ForgotPasswordFragment.Parent {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Email or Password is incorrect", Toast.LENGTH_SHORT).show()
                     }
                 }
-
             }else{
                 Toast.makeText(this, "Please enter all the fields", Toast.LENGTH_SHORT).show()
             }
