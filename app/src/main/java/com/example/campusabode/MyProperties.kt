@@ -38,7 +38,7 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_properties)
-        filterData = FilterData(null,null,null,null)
+        filterData = FilterData(null,null,null,null,null)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbars)
         setSupportActionBar(findViewById(R.id.toolbars))
