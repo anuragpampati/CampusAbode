@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +17,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemClickListener {
+class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemClickListener, FilterFragment.Parent , FilterFragment.OnFilterAppliedListener {
     lateinit var myAdapter: RecyclerViewAdapter
     private lateinit var database: FirebaseDatabase
     private val itemList = mutableListOf<Item>()
+    private lateinit var filterData: FilterData
 
 
     override fun onCreateView(
@@ -33,15 +35,49 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val layoutManager = LinearLayoutManager(view.context)
         val rv = requireActivity().findViewById<RecyclerView>(R.id.rv)
+        filterData = FilterData(null,null,null,null)
         rv.hasFixedSize()
-        rv.layoutManager = layoutManager
+        rv.layoutManager =  LinearLayoutManager(view.context)
 //         myAdapter = RecyclerViewAdapter(ArrayList(PropertyInit().propertyList))
-        database = FirebaseDatabase.getInstance()
-       // val auth = FirebaseAuth.getInstance().currentUser?.uid
-        val databaseReference = database.reference.child("AllProperties")
+        myAdapter = RecyclerViewAdapter(itemList)
+        myAdapter.setMyItemClickListener(this)
+        rv.adapter = myAdapter
+        val flitersBtn = view.findViewById<Button>(R.id.filtersBtn)
+        val clearFilBtn = view.findViewById<Button>(R.id.clearFiltersBtn)
+        retrieveDataFromFirebase()
 
+        flitersBtn.setOnClickListener{
+            val fragment = parentFragmentManager.findFragmentByTag("FilterFragment")
+            if (fragment != null) {
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.remove(fragment)
+                transaction.commit()
+            } else {
+                val filterFragment = FilterFragment()
+                filterFragment.setParent(this)
+                filterFragment.setFilterListener(this)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, filterFragment).commit()
+            }
+        }
+
+        clearFilBtn.setOnClickListener{
+            filterData.minPrice=null
+            filterData.maxPrice=null
+            filterData.bedrooms=null
+            filterData.bathrooms = null
+            retrieveDataFromFirebase()
+
+        }
+
+    }
+
+    private fun retrieveDataFromFirebase(){
+
+        database = FirebaseDatabase.getInstance()
+        // val auth = FirebaseAuth.getInstance().currentUser?.uid
+        val databaseReference = database.reference.child("AllProperties")
         databaseReference.get().addOnSuccessListener { dataSnapshot ->
             itemList.clear()
             for (userSnapshot in dataSnapshot.children){
@@ -75,59 +111,14 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
                 item.imageUrls = imageUrls
 
                 // Add the Item to the itemList
-                itemList.add(item)
+                if(isItemMatchingFilter(item,filterData)){
+                    itemList.add(item)
                 }
-
-                myAdapter = RecyclerViewAdapter(itemList)
-                myAdapter.setMyItemClickListener(this)
-                rv.adapter = myAdapter
             }
+            Log.e("PropertyListFragment", "Number of items retrieved: ${itemList.size}")
 
-
-//        val query = db.collection("123")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    if (document == null) {
-//                        Log.d(TAG, "Document is null.")
-//                        break // exit the loop if document is null
-//                    }
-//                    // Assuming your FirebaseProperty class has a constructor that takes a Map<String, Any>
-//                    val name = document.getString("name")
-//                    val email = document.getString("email")
-//                    val address = document.getString("address")
-//                    val description = document.getString("description")
-//                    val image = document.getString("image")
-//                    val url = ""
-//                    val overview = document.getString("overview")
-//                    val price = document.getString("price")
-//                    val video = document.getBoolean("video")
-//
-//                    // Create a FirebaseProperty object with the extracted fields
-//                    val firebaseProperty = Item(
-//                        primaryID,
-//                        id,
-//                        address,
-//                        description,
-//                        emptyList(),
-//                        url,
-//                        overview,
-//                        price,
-//                        video
-//                    )
-//                    propList.add(firebaseProperty)
-//
-//                    Log.d(TAG, "${document.id} => ${document.data}")
-//                }
-//                myAdapter = RecyclerViewAdapter(propList)
-//                myAdapter.setMyItemClickListener(this)
-//                rv.adapter = myAdapter
-//
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w(TAG, "Error getting documents.", exception)
-//            }
-
+            myAdapter.notifyDataSetChanged()
+        }
     }
 
     companion object;
@@ -139,8 +130,46 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
         transaction?.addToBackStack(null)
         transaction?.commit()
     }
+    override fun onFilterApplied(selectedBedrooms: String, selectedBathrooms: String, minPrice: String, maxPrice: String) {
+        // Handle filter logic here
+        // You can use the selectedBedrooms and selectedBathrooms to filter your data
+        // Update your data source or perform any other actions based on the filter
+
+        filterData.bathrooms=selectedBathrooms
+        filterData.bedrooms = selectedBedrooms
+        filterData.minPrice = minPrice
+        filterData.maxPrice = maxPrice
+
+        retrieveDataFromFirebase()
+    }
 
     override fun onItemLongClickedFromAdapter(property: Item) {
         Toast.makeText(activity, "You Click the ${property.location} card!", Toast.LENGTH_SHORT).show()
+    }
+    private fun isItemMatchingFilter(item: Item, filterData: FilterData): Boolean {
+        var bedroomsMatch:Boolean
+        var bathroomsMatch:Boolean
+        var priceMatch:Boolean
+
+        if(filterData.bedrooms.equals(">4")){
+            Log.e("SecondActivity", (Integer.parseInt(item.bedrooms).toString()))
+            bedroomsMatch =  Integer.parseInt(item.bedrooms)>=4
+            Log.e("SecondActivity", bedroomsMatch.toString())
+        }else{
+            bedroomsMatch = filterData.bedrooms.isNullOrBlank()|| filterData.bedrooms=="" || item.bedrooms?.toString().equals(filterData.bedrooms)
+
+        }
+        if(filterData.bathrooms.equals(">4")){
+            bathroomsMatch =  Integer.parseInt(item.bathrooms)>=4
+        }else{
+            bathroomsMatch = filterData.bathrooms.isNullOrBlank()||filterData.bathrooms=="" || item.bathrooms?.toString().equals(filterData.bathrooms)
+        }
+        val itemPrice = item.price?.toDoubleOrNull()
+        val minPrice = filterData.minPrice?.toDoubleOrNull() ?: Double.MIN_VALUE
+        val maxPrice = filterData.maxPrice?.toDoubleOrNull() ?: Double.MAX_VALUE
+
+        priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
+
+        return bedroomsMatch && bathroomsMatch && priceMatch
     }
 }
