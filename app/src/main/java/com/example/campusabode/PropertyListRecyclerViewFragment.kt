@@ -97,7 +97,7 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
                 val youtube =userSnapshot.child("youtubeurl").getValue(String::class.java)
 
                 // Create an instance of your data model class (Item)
-                val item = Item(name, email, location,description, emptyList(),price,phone,
+                val item = Item(name, email, description,location, emptyList(),price,phone,
                     bedrooms,bathrooms,availability,map,youtube) // Initialize with an empty list of image URLs
 
                 // Retrieve image URLs from the "images" node
