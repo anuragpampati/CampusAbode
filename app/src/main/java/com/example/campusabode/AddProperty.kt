@@ -95,31 +95,14 @@ class AddProperty : AppCompatActivity() {
 
 
     private fun uploadImagesToFirebase(name: String, email: String,description: String, location: String, imageUris: List<Uri>, price: String,phone : String,bedrooms: String,bathrooms:String,availability: String,mapurl:String,youtubeurl:String) {
-        // Create a reference for the user
-//        val descr = findViewById<EditText>(R.id.editTextDescription)
-//        val cp = findViewById<Button>(R.id.choosePhotoButton)
-//        val loc = findViewById<EditText>(R.id.editTextLocation)
-//        val pr = findViewById<EditText>(R.id.editTextPrice)
-//        val ph = findViewById<EditText>(R.id.editTextPhoneNumber)
-//        val ba = findViewById<EditText>(R.id.editTextBedroom)
-//        val bd = findViewById<EditText>(R.id.editTextBathroom)
-//        val av = findViewById<EditText>(R.id.editAvailability)
-//        val mp = findViewById<EditText>(R.id.editMapurl)
-//        val yt = findViewById<EditText>(R.id.edityoutubeurl)
+
         progressBar?.visibility = View.VISIBLE
-//        descr?.visibility = View.GONE
-//        cp?.visibility = View.GONE
-//        loc?.visibility = View.GONE
-//        pr?.visibility = View.GONE
-//        ph?.visibility = View.GONE
-//        ba?.visibility = View.GONE
-//        bd?.visibility = View.GONE
-//        av?.visibility = View.GONE
-//        mp?.visibility = View.GONE
-//        yt?.visibility = View.GONE
+
         val user = FirebaseAuth.getInstance().currentUser
         val userR = database.reference.child("users")
         val userRef = userR.child(user?.uid.toString()).push()
+
+        val allProps = database.reference.child("AllProperties").push()
 
         userRef.child("name").setValue(name)
         userRef.child("email").setValue(email)
@@ -132,9 +115,21 @@ class AddProperty : AppCompatActivity() {
         userRef.child("availability").setValue(availability)
         userRef.child("mapurl").setValue(mapurl)
         userRef.child("youtubeurl").setValue(youtubeurl)
+        allProps.child("name").setValue(name)
+        allProps.child("email").setValue(email)
+        allProps.child("description").setValue(description)
+        allProps.child("location").setValue(location)
+        allProps.child("price").setValue(price)
+        allProps.child("phone").setValue(phone)
+        allProps.child("bedrooms").setValue(bedrooms)
+        allProps.child("bathrooms").setValue(bathrooms)
+        allProps.child("availability").setValue(availability)
+        allProps.child("mapurl").setValue(mapurl)
+        allProps.child("youtubeurl").setValue(youtubeurl)
 
         // Create a reference for the user's images
         val imagesRef = userRef.child("images")
+        val imagesRef2 = allProps.child("images")
 
         // Iterate through each image URI in the list
         for (imageUri in imageUris) {
@@ -149,18 +144,10 @@ class AddProperty : AppCompatActivity() {
                         // Create a reference for each image under "images" node
                         val imageRef = imagesRef.push()
                         imageRef.setValue(imageUrl)
+                        val imageRef2 = imagesRef2.push()
+                        imageRef2.setValue(imageUrl)
                         Toast.makeText(this, "Property uploaded successfully", Toast.LENGTH_SHORT).show()
                         progressBar?.visibility = View.GONE
-//                        descr?.visibility = View.VISIBLE
-//                        cp?.visibility = View.VISIBLE
-//                        loc?.visibility = View.VISIBLE
-//                        pr?.visibility = View.VISIBLE
-//                        ph?.visibility = View.VISIBLE
-//                        ba?.visibility = View.VISIBLE
-//                        bd?.visibility = View.VISIBLE
-//                        av?.visibility = View.VISIBLE
-//                        mp?.visibility = View.VISIBLE
-//                        yt?.visibility = View.VISIBLE
                     }
                 }
                 .addOnFailureListener { e ->
