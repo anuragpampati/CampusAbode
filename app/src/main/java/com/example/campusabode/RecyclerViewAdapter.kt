@@ -1,6 +1,6 @@
 package com.example.campusabode
 
-import FirebaseProperty
+import Item
 import android.content.ContentValues
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,14 +11,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter(val items: ArrayList<FirebaseProperty>):
+class RecyclerViewAdapter(val items: MutableList<Item>):
     RecyclerView.Adapter<RecyclerViewAdapter.PropertyViewHolder>() {
     var myListener: MyItemClickListener? = null
 
     interface MyItemClickListener {
 
-        fun onItemClickedFromAdapter(property: FirebaseProperty)
-        fun onItemLongClickedFromAdapter(property: FirebaseProperty)
+        fun onItemClickedFromAdapter(property: Item)
+        fun onItemLongClickedFromAdapter(property: Item)
     }
     fun setMyItemClickListener(listener: MyItemClickListener) {
         this.myListener = listener
@@ -42,11 +42,11 @@ class RecyclerViewAdapter(val items: ArrayList<FirebaseProperty>):
 
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
         val property = items[position]
-        holder.propertyAddress.text = property.address.toString()
+        holder.propertyAddress.text = property.location.toString()
         holder.propertyOverview.text = property.description.toString()
         holder.propertyPrice.text = property.price.toString()
         holder.propertyPoster.setImageResource(R.drawable.default_img)
-        Log.d(ContentValues.TAG, "${property.address}")
+        Log.d(ContentValues.TAG, "${property.location}")
         Log.d(ContentValues.TAG, "${property.description}")
         Log.d(ContentValues.TAG, "${holder.propertyPrice.text}")
 //        Log.d(ContentValues.TAG, "${holder.propertyAddress.text}")

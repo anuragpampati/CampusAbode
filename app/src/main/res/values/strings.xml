@@ -28,4 +28,8 @@
     <string name="Utilities">Utilities</string>
     <string name="add_new_property">Add New Property</string>
     <string name="enter_full_name">Enter Full Name</string>
+    <string name="google_maps_api_key">AIzaSyAd8cwfCprCK5SLnKLoezCGXzY-yeTuUq4</string>
+    <string name="maps">Directions</string>
+    <string name="bedroom">Bed Rooms: </string>
+    <string name="bathroom">Bath Rooms: </string>
 </resources>

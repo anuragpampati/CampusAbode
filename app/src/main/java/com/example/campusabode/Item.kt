@@ -1,4 +1,4 @@
-package com.example.campusabode
+import java.io.Serializable
 
 data class Item(val name: String?,
                 val email: String?,
@@ -12,4 +12,4 @@ data class Item(val name: String?,
                 var availability: String?,
                 var map: String?,
                 var youtube: String?
-)
+):Serializable
