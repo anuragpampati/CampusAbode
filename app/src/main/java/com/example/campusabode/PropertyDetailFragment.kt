@@ -46,12 +46,15 @@ class PropertyDetailFragment : Fragment() {
         val propOverview: TextView = requireActivity().findViewById(R.id.propOverview)
         val propBathroom: TextView = requireActivity().findViewById(R.id.brvalue)
         val propBedroom: TextView = requireActivity().findViewById(R.id.bedroomvalue)
+        val propEmail: TextView = requireActivity().findViewById(R.id.email)
 
         propAddress.text = property!!.location
         propPrice.text = "$" + property!!.price.toString()
         propOverview.text = property!!.description
         propBathroom.text = property!!.bathrooms.toString()
         propBedroom.text = property!!.bedrooms.toString()
+        propEmail.text = "Contact Email: "+property!!.email.toString()
+
         val youTubePlayerView: YouTubePlayerView = requireActivity().findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(youTubePlayerView)
 
