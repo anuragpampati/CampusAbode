@@ -33,4 +33,8 @@
     <string name="bed_room">Bed Room</string>
     <string name="bath_room">Bath Room</string>
     <string name="price_range">Price Range</string>
+    <string name="google_maps_api_key">AIzaSyAd8cwfCprCK5SLnKLoezCGXzY-yeTuUq4</string>
+    <string name="maps">Directions</string>
+    <string name="bedroom">Bed Rooms: </string>
+    <string name="bathroom">Bath Rooms: </string>
 </resources>

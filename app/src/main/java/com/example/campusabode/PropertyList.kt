@@ -8,16 +8,16 @@ class PropertyInit{
     val propertyList: List<PropertyList> = Gson().fromJson(properties, Array<PropertyList>::class.java).asList()
     val posterTable: MutableMap<String, Int> = mutableMapOf()
     init{
-        posterTable["prop1"] = R.drawable.default_img
-        posterTable["prop2"] = R.drawable.default_img
-        posterTable["prop3"] = R.drawable.default_img
-        posterTable["prop4"] = R.drawable.default_img
-        posterTable["prop5"] = R.drawable.default_img
-        posterTable["prop6"] = R.drawable.default_img
-        posterTable["prop7"] = R.drawable.default_img
-        posterTable["prop8"] = R.drawable.default_img
-        posterTable["prop9"] = R.drawable.default_img
-        posterTable["prop1"] = R.drawable.default_img
+//        posterTable["prop1"] = R.drawable.default_img
+//        posterTable["prop2"] = R.drawable.default_img
+//        posterTable["prop3"] = R.drawable.default_img
+//        posterTable["prop4"] = R.drawable.default_img
+//        posterTable["prop5"] = R.drawable.default_img
+//        posterTable["prop6"] = R.drawable.default_img
+//        posterTable["prop7"] = R.drawable.default_img
+//        posterTable["prop8"] = R.drawable.default_img
+//        posterTable["prop9"] = R.drawable.default_img
+//        posterTable["prop1"] = R.drawable.default_img
         for(property in propertyList){
             property.poster_pos = posterTable[property.address]
         }

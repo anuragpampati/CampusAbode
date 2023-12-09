@@ -8,7 +8,7 @@ data class FirebaseProperty(
     @SerializedName("id"          ) var id          : String? = null,
     @SerializedName("address"        ) var address        : String? = null,
     @SerializedName("description" ) var description : String? = null,
-    @SerializedName("image"       ) var image       : String? = null,
+    @SerializedName("images") var images: List<String>,
     @SerializedName("url"         ) var url         : String? = null,
     @SerializedName("overview"         ) var overview         : String? = null,
     @SerializedName("price") var price: String? = null,

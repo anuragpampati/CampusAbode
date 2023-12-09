@@ -18,7 +18,7 @@ import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.OnFilterAppliedListener {
+class MyProperties : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
@@ -99,7 +99,6 @@ class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.On
                 itemList.clear()
 
                 for (userSnapshot in dataSnapshot.children) {
-
                     val name = userSnapshot.child("name").getValue(String::class.java)
                     val email = userSnapshot.child("email").getValue(String::class.java)
                     val description = userSnapshot.child("description").getValue(String::class.java)
@@ -128,9 +127,7 @@ class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.On
                     item.imageUrls = imageUrls
 
                     // Add the Item to the itemList
-                    if (isItemMatchingFilter(item, filterData)) {
-                        itemList.add(item)
-                    }
+                    itemList.add(item)
                 }
 
                 adapter.notifyDataSetChanged()
