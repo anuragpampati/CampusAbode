@@ -28,7 +28,7 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
     private val itemList = mutableListOf<Item>() // Create a data model class (Item) for your Firebase data
-
+    private lateinit var filterData: FilterData
     private lateinit var database: FirebaseDatabase
 
 
@@ -36,6 +36,7 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_properties)
+        filterData = FilterData(null,null,null,null)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbars)
         setSupportActionBar(findViewById(R.id.toolbars))
@@ -55,6 +56,8 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         adapter = MyAdapter(itemList) // Pass your data model list to the adapter
         recyclerView.adapter = adapter
         val addNewProperty = findViewById<Button>(R.id.addProperty)
+        val flitersBtn = findViewById<Button>(R.id.filtersBtn)
+        val clearFilBtn = findViewById<Button>(R.id.clearFiltersBtn)
 
         database = FirebaseDatabase.getInstance()
 
@@ -65,6 +68,44 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             val intent = Intent(this, AddProperty::class.java)
             startActivity(intent)
         }
+        flitersBtn.setOnClickListener{
+            val fragment = supportFragmentManager.findFragmentByTag("FilterFragment")
+
+            if (fragment != null) {
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.remove(fragment)
+                transaction.commit()
+            } else {
+                val filterFragment = FilterFragment()
+                filterFragment.setParent(this)
+                filterFragment.setFilterListener(this)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, filterFragment).commit()
+            }
+        }
+
+        clearFilBtn.setOnClickListener{
+            filterData.minPrice=null
+            filterData.maxPrice=null
+            filterData.bedrooms=null
+            filterData.bathrooms = null
+            retrieveDataFromFirebase()
+
+        }
+
+    }
+    override fun onFilterApplied(selectedBedrooms: String, selectedBathrooms: String, minPrice: String, maxPrice: String) {
+        // Handle filter logic here
+        // You can use the selectedBedrooms and selectedBathrooms to filter your data
+        // Update your data source or perform any other actions based on the filter
+
+        filterData.bathrooms=selectedBathrooms
+        filterData.bedrooms = selectedBedrooms
+        filterData.minPrice = minPrice
+        filterData.maxPrice = maxPrice
+
+        Log.e("FilterFragment", "Selected Bedrooms: ${filterData.bedrooms}, Selected Bathrooms: ${filterData.bathrooms}")
+        retrieveDataFromFirebase()
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
@@ -95,7 +136,6 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         finish()
     }
     private fun retrieveDataFromFirebase() {
-
         val auth = FirebaseAuth.getInstance().currentUser?.uid
         val databaseReference = database.reference.child("users").child(auth.toString())
 
@@ -144,5 +184,32 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
         })
     }
+    private fun isItemMatchingFilter(item: Item, filterData: FilterData): Boolean {
+        var bedroomsMatch:Boolean
+        var bathroomsMatch:Boolean
+        var priceMatch:Boolean
 
+        if(filterData.bedrooms.equals(">4")){
+            Log.e("SecondActivity", (Integer.parseInt(item.bedrooms).toString()))
+            bedroomsMatch =  Integer.parseInt(item.bedrooms)>=4
+            Log.e("SecondActivity", bedroomsMatch.toString())
+        }else{
+            bedroomsMatch = filterData.bedrooms.isNullOrBlank()|| filterData.bedrooms=="" || item.bedrooms?.toString().equals(filterData.bedrooms)
+
+        }
+        if(filterData.bathrooms.equals(">4")){
+            bathroomsMatch =  Integer.parseInt(item.bathrooms)>=4
+        }else{
+            bathroomsMatch = filterData.bathrooms.isNullOrBlank()||filterData.bathrooms=="" || item.bathrooms?.toString().equals(filterData.bathrooms)
+        }
+        val itemPrice = item.price?.toDoubleOrNull()
+        val minPrice = filterData.minPrice?.toDoubleOrNull() ?: Double.MIN_VALUE
+        val maxPrice = filterData.maxPrice?.toDoubleOrNull() ?: Double.MAX_VALUE
+
+        priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
+        Log.e("SecondActivity", bathroomsMatch.toString())
+//        Log.e("FilterFragment", "item Bedrooms: ${item.bedrooms}, item Bathrooms: ${item.bedrooms}")
+        // Return true if the item matches all filter criteria
+        return bedroomsMatch && bathroomsMatch && priceMatch
+    }
 }
