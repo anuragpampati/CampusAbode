@@ -111,12 +111,11 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_item_1 -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_item_2 -> {
-                val intent = Intent(this, MyProperties::class.java)
-                startActivity(intent)
+
             }
             R.id.nav_item_3 -> {
                 val intent = Intent(this, EditProfile::class.java)
@@ -214,5 +213,12 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
 
         return bedroomsMatch && bathroomsMatch && priceMatch
+    }
+    override fun onBackPressed() {
+        if (mainAct.isDrawerOpen(GravityCompat.START)) {
+            mainAct.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

@@ -54,8 +54,7 @@ class MainActivity : AppCompatActivity(), ProfileUpdateListener,NavigationView.O
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.nav_item_1 -> {
-                supportFragmentManager.beginTransaction()
-                    .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
+
             }
             R.id.nav_item_2 -> {
                 val intent = Intent(this, MyProperties::class.java)
@@ -73,15 +72,18 @@ class MainActivity : AppCompatActivity(), ProfileUpdateListener,NavigationView.O
         return true
     }
 
-    override fun onStart() {
-        super.onStart()
-//        checkUserSignedIn()
-    }
     fun userSignOut(){
         val auth = FirebaseAuth.getInstance()
         auth.signOut()
         val intent = Intent(this, Login::class.java)
         startActivity(intent)
         finish()
+    }
+    override fun onBackPressed() {
+        if (mainAct.isDrawerOpen(GravityCompat.START)) {
+            mainAct.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }
