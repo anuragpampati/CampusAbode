@@ -67,7 +67,8 @@
                         android:background="@drawable/rounded_corner"
                         android:backgroundTint="@color/silver"
                         android:gravity="center"
-                        android:text="TextView2" />
+                        android:text="@string/availability"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/rvprice"
