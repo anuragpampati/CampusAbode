@@ -65,7 +65,7 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
-    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation ("androidx.cardview:cardview:1.0.0")
 
 }
