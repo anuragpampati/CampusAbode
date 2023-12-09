@@ -48,7 +48,7 @@ class PropertyDetailFragment : Fragment() {
         val propBedroom: TextView = requireActivity().findViewById(R.id.bedroomvalue)
 
         propAddress.text = property!!.location
-        propPrice.text = property!!.price.toString()
+        propPrice.text = "$" + property!!.price.toString()
         propOverview.text = property!!.description
         propBathroom.text = property!!.bathrooms.toString()
         propBedroom.text = property!!.bedrooms.toString()
