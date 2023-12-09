@@ -1,9 +1,12 @@
 package com.example.campusabode
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -13,25 +16,21 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity : AppCompatActivity(), ProfileUpdateListener,NavigationView.OnNavigationItemSelectedListener {
     lateinit var mainAct: DrawerLayout
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(findViewById(R.id.toolbar))
         // Get support action bar
         val appBar = supportActionBar
-
-        //set App title
-//        appBar!!.title = "Navigation View"
-
-
-        //Display app icon in toolbar
-//        appBar.setDisplayShowHomeEnabled(true)
-//        appBar.setLogo(R.mipmap.ic_launcher)
-//        appBar.setDisplayUseLogoEnabled(true)
 
         mainAct = findViewById(R.id.mainAct)
         val navView = findViewById<NavigationView>(R.id.navView)
@@ -42,6 +41,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction()
             .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
 
+    }
+    override fun onProfileUpdated(name: String, email: String) {
+        val headerNameTextView = findViewById<TextView>(R.id.profilename)
+        val headerEmailTextView = findViewById<TextView>(R.id.profileemail)
+        headerNameTextView.text = name
+        headerEmailTextView.text = email
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
