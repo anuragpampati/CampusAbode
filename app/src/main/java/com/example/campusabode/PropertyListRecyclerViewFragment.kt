@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -36,15 +37,20 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val rv = requireActivity().findViewById<RecyclerView>(R.id.rv)
-        filterData = FilterData(null,null,null,null)
+        filterData = FilterData(null,null,null,null,null)
         rv.hasFixedSize()
         rv.layoutManager =  LinearLayoutManager(view.context)
 //         myAdapter = RecyclerViewAdapter(ArrayList(PropertyInit().propertyList))
+//        val searchLocation = arguments?.getString("searchLocation")
         myAdapter = RecyclerViewAdapter(itemList)
         myAdapter.setMyItemClickListener(this)
         rv.adapter = myAdapter
         val flitersBtn = view.findViewById<Button>(R.id.filtersBtn)
         val clearFilBtn = view.findViewById<Button>(R.id.clearFiltersBtn)
+        // If searchLocation is not null, perform search based on location
+//        if (!searchLocation.isNullOrEmpty()) {
+//            filterData.location = searchLocation
+//        }
         retrieveDataFromFirebase()
 
         flitersBtn.setOnClickListener{
@@ -167,9 +173,17 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
         val itemPrice = item.price?.toDoubleOrNull()
         val minPrice = filterData.minPrice?.toDoubleOrNull() ?: Double.MIN_VALUE
         val maxPrice = filterData.maxPrice?.toDoubleOrNull() ?: Double.MAX_VALUE
-
+        Log.e("test",filterData.location.toString())
+        Log.e("test",item.description.toString())
+//        val searchMatching = filterData.location.isNullOrBlank()||filterData.location.toString().trim()=="" ||
+//                item.description?.contains(filterData.location.toString(), ignoreCase = true) == true
+//        Log.e("test",searchMatching.toString())
+        Log.e("test",bathroomsMatch.toString())
+        Log.e("test",bedroomsMatch.toString())
         priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
+        Log.e("test",priceMatch.toString())
 
         return bedroomsMatch && bathroomsMatch && priceMatch
+//                && searchMatching
     }
 }
