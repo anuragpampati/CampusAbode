@@ -22,7 +22,7 @@ import com.google.firebase.firestore.firestore
 class MainActivity : AppCompatActivity(), ProfileUpdateListener,NavigationView.OnNavigationItemSelectedListener {
     lateinit var mainAct: DrawerLayout
 
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
