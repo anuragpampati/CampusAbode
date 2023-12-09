@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.google.firebase:firebase-firestore:24.10.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.google.firebase:firebase-storage:20.3.0")

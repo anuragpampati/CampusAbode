@@ -3,7 +3,9 @@ package com.example.campusabode
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -16,48 +18,21 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity : AppCompatActivity(), ProfileUpdateListener,NavigationView.OnNavigationItemSelectedListener {
     lateinit var mainAct: DrawerLayout
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(findViewById(R.id.toolbar))
         // Get support action bar
         val appBar = supportActionBar
-
-        //set App title
-//        appBar!!.title = "Navigation View"
-
-
-        //Display app icon in toolbar
-//        appBar.setDisplayShowHomeEnabled(true)
-//        appBar.setLogo(R.mipmap.ic_launcher)
-//        appBar.setDisplayUseLogoEnabled(true)
-//        val searchIcon = findViewById<ImageView>(R.id.searchIcon)
-//        val searchEditText = findViewById<TextInputEditText>(R.id.emailEt)
-
-//        searchIcon.setOnClickListener {
-//            val searchText = searchEditText.text.toString().trim()
-//
-//            if (searchText.isNotEmpty()) {
-//                val propertyListFragment = PropertyListRecyclerViewFragment( )
-//                val bundle = Bundle()
-//                bundle.putString("searchLocation", searchText)
-//                propertyListFragment.arguments = bundle
-//
-//                supportFragmentManager.beginTransaction()
-//                    .replace(R.id.meContainer, propertyListFragment)
-//                    .addToBackStack(null)
-//                    .commit()
-//
-//                mainAct.closeDrawer(GravityCompat.START)
-//            } else {
-//                // Handle empty search text if needed
-//                Toast.makeText(this, "Enter a location to search", Toast.LENGTH_SHORT).show()
-//            }
-//        }
 
         mainAct = findViewById(R.id.mainAct)
         val navView = findViewById<NavigationView>(R.id.navView)
@@ -68,6 +43,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportFragmentManager.beginTransaction()
             .add(R.id.meContainer, PropertyListRecyclerViewFragment()).commit()
 
+    }
+    override fun onProfileUpdated(name: String, email: String) {
+        val headerNameTextView = findViewById<TextView>(R.id.profilename)
+        val headerEmailTextView = findViewById<TextView>(R.id.profileemail)
+        headerNameTextView.text = name
+        headerEmailTextView.text = email
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

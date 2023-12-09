@@ -66,6 +66,12 @@
     <color name="paleturquoise">#AFEEEE</color>
     <color name="aquamarine">#7FFFD4</color>
     <color name="powderblue">#B0E0E6</color>
+    <color name="colorPrimary1">#008577</color>
+    <color name="colorPrimaryDark1">#00574B</color>
+    <color name="graylight">#BEBEBE</color>
+    <color name="startblue">#ff4500</color>
+    <color name="endblue">#DC5A32</color>
+    <color name="colorAccent1">#D81B60</color>
 
     <color name="navy">#000080</color>
     <color name="light_gray">#CCCCCC</color>
