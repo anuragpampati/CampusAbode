@@ -1,13 +1,202 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FilterFragment">
+<!-- fragment_filter.xml -->
 
-    <TextView
-        android:layout_width="wrap_content"
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FilterFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        />
-</androidx.core.widget.NestedScrollView>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/closeBtn"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray"
+            android:text="@string/x"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_bedroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/bed_room" />
+        <RadioGroup
+            android:id="@+id/bedroomRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_columnWeight="1"/>
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="16dp"/>
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="16dp"
+                 />
+
+            <RadioButton
+                android:id="@+id/radioButton4Plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">4"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="16dp"
+                 />
+        </RadioGroup>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_bathroom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/bath_room" />
+
+        <RadioGroup
+            android:id="@+id/bathroomRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/bathroom1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_columnWeight="1"/>
+
+            <RadioButton
+                android:id="@+id/bathroom2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="16dp"/>
+
+            <RadioButton
+                android:id="@+id/bathroom3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:layout_marginStart="16dp"
+                android:layout_columnWeight="1" />
+
+            <RadioButton
+                android:id="@+id/bathroom4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">4"
+                android:layout_columnWeight="1"
+                android:layout_marginStart="16dp"
+                 />
+        </RadioGroup>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/tv_price_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/price_range" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Min Price TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/minPriceLayout"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@color/orange"
+                app:hintTextColor="@color/orange"
+                android:layout_weight="1"
+                android:hint="Min Price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/minPrice"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Max Price TextInputLayout -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/maxPriceLayout"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:boxStrokeColor="@color/orange"
+                app:hintTextColor="@color/orange"
+                android:layout_weight="1"
+                android:hint="Max Price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/maxPrice"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+    </FrameLayout>
+
