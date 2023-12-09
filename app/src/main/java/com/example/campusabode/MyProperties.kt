@@ -46,6 +46,7 @@ class MyProperties : AppCompatActivity() {
     }
 
     private fun retrieveDataFromFirebase() {
+
         val auth = FirebaseAuth.getInstance().currentUser?.uid
         val databaseReference = database.reference.child("users").child(auth.toString())
 
