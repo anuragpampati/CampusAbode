@@ -171,6 +171,7 @@ class MyProperties : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     }
 
                     // Set the list of image URLs to the Item
+                    //commeysbasadca
                     item.imageUrls = imageUrls
 
                     // Add the Item to the itemList
