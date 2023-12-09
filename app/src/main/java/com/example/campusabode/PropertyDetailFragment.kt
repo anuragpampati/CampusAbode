@@ -1,12 +1,15 @@
 package com.example.campusabode
 
 import Item
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,32 +37,53 @@ class PropertyDetailFragment : Fragment() {
         super.onStart()
         loadPropertyInfo()
         setUpImageRecyclerView()
+        setMapLinkClickListener()
     }
 
     private fun loadPropertyInfo() {
         val propAddress: TextView = requireActivity().findViewById(R.id.propAddress)
-//        val movieID: TextView = requireActivity().findViewById(R.id.movieID)
         val propPrice: TextView = requireActivity().findViewById(R.id.propPrice)
         val propOverview: TextView = requireActivity().findViewById(R.id.propOverview)
-//        val movieYear: TextView = requireActivity().findViewById(R.id.movieYear)
-//        val movieImage: ImageView = requireActivity().findViewById(R.id.movieImage)
-
+        val propBathroom: TextView = requireActivity().findViewById(R.id.brvalue)
+        val propBedroom: TextView = requireActivity().findViewById(R.id.bedroomvalue)
 
         propAddress.text = property!!.location
         propPrice.text = property!!.price.toString()
         propOverview.text = property!!.description
-//        movieYear.text = property!!.release_date
-//        movieImage.setImageResource(property!!.poster_pos!!)
+        propBathroom.text = property!!.bathrooms.toString()
+        propBedroom.text = property!!.bedrooms.toString()
         val youTubePlayerView: YouTubePlayerView = requireActivity().findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(youTubePlayerView)
 
         youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "S0Q4gqBUs7c"
+                val videoId = property!!.youtube.toString()
                 youTubePlayer.loadVideo(videoId, 0F)
             }
         })
 
+    }
+
+    private fun setMapLinkClickListener() {
+        val propMapLink: TextView = requireActivity().findViewById(R.id.mapLink)
+        propMapLink.text = property!!.map.toString()
+        propMapLink.setOnClickListener { openGoogleMaps() }
+    }
+
+    private fun openGoogleMaps() {
+        val mapLink = property?.map.toString()
+
+        // Create an Intent with the ACTION_VIEW action and the map link URI
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mapLink))
+
+        // Check if there's an app that can handle this Intent
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            // Start the activity
+            startActivity(intent)
+        } else {
+            // If no app can handle the Intent, you may want to display a message to the user
+             Toast.makeText(requireContext(), "No app to handle the map link", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setUpImageRecyclerView() {

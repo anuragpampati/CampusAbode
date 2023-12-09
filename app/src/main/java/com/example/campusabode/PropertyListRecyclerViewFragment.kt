@@ -91,8 +91,8 @@ class PropertyListRecyclerViewFragment : Fragment(), RecyclerViewAdapter.MyItemC
                 val bedrooms = userSnapshot.child("bedrooms").getValue(String::class.java)
                 val bathrooms =userSnapshot.child("bathrooms").getValue(String::class.java)
                 val availability =userSnapshot.child("availability").getValue(String::class.java)
-                val map= userSnapshot.child("map").getValue(String::class.java)
-                val youtube =userSnapshot.child("youtube").getValue(String::class.java)
+                val map= userSnapshot.child("mapurl").getValue(String::class.java)
+                val youtube =userSnapshot.child("youtubeurl").getValue(String::class.java)
 
                 // Create an instance of your data model class (Item)
                 val item = Item(name, email, location,description, emptyList(),price,phone,

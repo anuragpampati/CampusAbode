@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 class RecyclerViewAdapter(val items: MutableList<Item>):
     RecyclerView.Adapter<RecyclerViewAdapter.PropertyViewHolder>() {
@@ -45,7 +46,17 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
         holder.propertyAddress.text = property.location.toString()
         holder.propertyOverview.text = property.description.toString()
         holder.propertyPrice.text = property.price.toString()
-        holder.propertyPoster.setImageResource(R.drawable.default_img)
+        val firstImageUrl = property.imageUrls.firstOrNull()
+        if (firstImageUrl != null) {
+            Glide.with(holder.propertyPoster.context)
+                .load(firstImageUrl)
+                .placeholder(R.drawable.loading) // Placeholder image while loading
+                .error(R.drawable.errorimg) // Image to display in case of error
+                .into(holder.propertyPoster)
+        } else {
+            // Handle the case where there is no image URL
+            holder.propertyPoster.setImageResource(R.drawable.default_pic)
+        }
         Log.d(ContentValues.TAG, "${property.location}")
         Log.d(ContentValues.TAG, "${property.description}")
         Log.d(ContentValues.TAG, "${holder.propertyPrice.text}")
