@@ -1,6 +1,7 @@
 package com.example.campusabode
 
 
+import Item
 import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.Intent
@@ -18,7 +19,7 @@ import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 
 
-class MyProperties : AppCompatActivity() {
+class MyProperties : AppCompatActivity(),FilterFragment.Parent,FilterFragment.OnFilterAppliedListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MyAdapter // Create a custom adapter
@@ -85,7 +86,6 @@ class MyProperties : AppCompatActivity() {
         filterData.minPrice = minPrice
         filterData.maxPrice = maxPrice
 
-        Log.e("FilterFragment", "Selected Bedrooms: ${filterData.bedrooms}, Selected Bathrooms: ${filterData.bathrooms}")
         retrieveDataFromFirebase()
     }
 
@@ -162,8 +162,7 @@ class MyProperties : AppCompatActivity() {
 
         priceMatch = itemPrice != null && itemPrice in minPrice..maxPrice
         Log.e("SecondActivity", bathroomsMatch.toString())
-//        Log.e("FilterFragment", "item Bedrooms: ${item.bedrooms}, item Bathrooms: ${item.bedrooms}")
-        // Return true if the item matches all filter criteria
+
         return bedroomsMatch && bathroomsMatch && priceMatch
     }
 }
