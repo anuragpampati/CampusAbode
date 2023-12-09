@@ -25,6 +25,7 @@
             android:layout_height="150dp"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_marginTop="8dp"
+            android:maxLines="4"
             android:hint="Description"/>
         </com.google.android.material.textfield.TextInputLayout>
         <Button

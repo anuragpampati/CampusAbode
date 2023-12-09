@@ -57,6 +57,7 @@
                     android:id="@+id/rvBedRoom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:text="@string/bed_room" />
                 <TextView
                     android:id="@+id/rvBathRoom"
