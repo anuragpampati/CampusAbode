@@ -58,6 +58,7 @@ class AddProperty : AppCompatActivity() {
             val user = FirebaseAuth.getInstance().currentUser
             val name = user?.displayName.toString()
             val email = user?.email.toString()
+            val description = binding.editTextDescription.text.toString()
             location = binding.editTextLocation.text.toString()
             price=binding.editTextPrice.text.toString()
             phone=binding.editTextPhoneNumber.text.toString()
@@ -71,7 +72,7 @@ class AddProperty : AppCompatActivity() {
             if (name.isNotEmpty() && email.isNotEmpty() && location.isNotEmpty()
 //                && selectedImageUris.isNotEmpty()
                 &&price.isNotEmpty() && phone.isNotEmpty() && bedrooms.isNotEmpty() && bathrooms.isNotEmpty() &&availability.isNotEmpty() &&mapurl.isNotEmpty() && youtubeurl.isNotEmpty()) {
-                uploadImagesToFirebase(name, email, location, selectedImageUris , price,phone, bedrooms, bathrooms, availability, mapurl, youtubeurl)
+                uploadImagesToFirebase(name, email,description, location, selectedImageUris , price,phone, bedrooms, bathrooms, availability, mapurl, youtubeurl)
             } else {
                 Toast.makeText(this, "Please enter all details and choose at least one photo", Toast.LENGTH_SHORT).show()
             }
@@ -85,15 +86,16 @@ class AddProperty : AppCompatActivity() {
 
 
 
-    private fun uploadImagesToFirebase(name: String, email: String, location: String, imageUris: List<Uri>, price: String,phone : String,bedrooms: String,bathrooms:String,availability: String,mapurl:String,youtubeurl:String) {
+    private fun uploadImagesToFirebase(name: String, email: String,description: String, location: String, imageUris: List<Uri>, price: String,phone : String,bedrooms: String,bathrooms:String,availability: String,mapurl:String,youtubeurl:String) {
         // Create a reference for the user
 
-        val user = FirebaseAuth.getInstance().currentUser?.uid
+        val user = FirebaseAuth.getInstance().currentUser
         val userR = database.reference.child("users")
-        val userRef = userR.child(user.toString()).push()
+        val userRef = userR.child(user?.uid.toString()).push()
 
         userRef.child("name").setValue(name)
         userRef.child("email").setValue(email)
+        userRef.child("description").setValue(description)
         userRef.child("location").setValue(location)
         userRef.child("price").setValue(price)
         userRef.child("phone").setValue(phone)

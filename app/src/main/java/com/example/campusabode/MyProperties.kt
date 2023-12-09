@@ -57,6 +57,7 @@ class MyProperties : AppCompatActivity() {
                 for (userSnapshot in dataSnapshot.children) {
                     val name = userSnapshot.child("name").getValue(String::class.java)
                     val email = userSnapshot.child("email").getValue(String::class.java)
+                    val description = userSnapshot.child("description").getValue(String::class.java)
                     val location = userSnapshot.child("location").getValue(String::class.java)
                     val price = userSnapshot.child("price").getValue(String::class.java)
                     val phone = userSnapshot.child("phone").getValue(String::class.java)
@@ -67,7 +68,7 @@ class MyProperties : AppCompatActivity() {
                     val youtube =userSnapshot.child("youtube").getValue(String::class.java)
 
                     // Create an instance of your data model class (Item)
-                    val item = Item(name, email, location, emptyList(),price,phone,bedrooms,bathrooms,availability,map,youtube) // Initialize with an empty list of image URLs
+                    val item = Item(name, email, location,description, emptyList(),price,phone,bedrooms,bathrooms,availability,map,youtube) // Initialize with an empty list of image URLs
 
                     // Retrieve image URLs from the "images" node
                     val imagesSnapshot = userSnapshot.child("images")

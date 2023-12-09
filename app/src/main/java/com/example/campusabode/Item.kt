@@ -2,6 +2,7 @@ package com.example.campusabode
 
 data class Item(val name: String?,
                 val email: String?,
+                val description: String?,
                 val location: String?,
                 var imageUrls: List<String>,
                 var price: String?,
