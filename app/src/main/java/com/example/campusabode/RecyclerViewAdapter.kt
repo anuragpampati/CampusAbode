@@ -29,7 +29,7 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
         val propertyCard = view.findViewById<CardView>(R.id.card)
         val propertyPoster = view.findViewById<ImageView>(R.id.rvPoster)
         val propertyAddress = view.findViewById<TextView>(R.id.rvAddress)
-        val propertyOverview = view.findViewById<TextView>(R.id.rvOverview)
+        val propertyDescription = view.findViewById<TextView>(R.id.rvdescription)
         val propertyPrice = view.findViewById<TextView>(R.id.rvprice)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PropertyViewHolder {
@@ -44,7 +44,7 @@ class RecyclerViewAdapter(val items: MutableList<Item>):
     override fun onBindViewHolder(holder: PropertyViewHolder, position: Int) {
         val property = items[position]
         holder.propertyAddress.text = property.location.toString()
-        holder.propertyOverview.text = property.description.toString()
+        holder.propertyDescription.text = property.description.toString()
         holder.propertyPrice.text = property.price.toString()
         val firstImageUrl = property.imageUrls.firstOrNull()
         if (firstImageUrl != null) {
