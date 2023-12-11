@@ -46,7 +46,7 @@ class SignUp : AppCompatActivity() {
 
                         }
                         else{
-                            Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,"Invalid Details", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }else{
